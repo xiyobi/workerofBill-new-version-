@@ -1,0 +1,24 @@
+.table{
+    background-color: blue;
+    font-size: large;
+    border-radius: 10px;
+}
+.table tr th {
+    border-radius: 50px;
+    background-color: antiquewhite;
+    font-size: large;
+}
+.table tr td {
+    border-radius: 10px;
+    background-color: green;
+}
+.stely input{
+    border-radius: 10px;
+    
+
+}
+.stely button{
+    border-radius: 10px;
+    inline-size: 80px solid green 2px ;   
+
+}
