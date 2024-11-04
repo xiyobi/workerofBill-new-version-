@@ -26,7 +26,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="post">
+                    <form action = "index.php" class="post">
                         <h5>When are you working?</h5>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
@@ -82,18 +82,32 @@
     $username = "root";
     $password = "root";
     $pdo = new PDO($dns,$username,$password);
+    const ish_vaqti = 8;
 
     if(isset($_POST["StartWork_at"]) and isset($_POST["FinalyWork_at"]) and isset($_POST["NamesofWorker"])){
-        $startWork = $_POST['StartWork_at']; 
-        $finalyWork = $_POST['FinalyWork_at']; 
-        $nameWork = $_POST['NamesofWorker']; 
 
+        if(!empty($_POST['StartWork_at']) and !empty($_POST['FinalyWork_at']) and !empty($_POST['NamesofWorker'])){
 
-        $stmt = $pdo->prepare("INSERT INTO work_times (StartWork_at, FinalyWork_at, NamesofWorker) VALUES (:startWork, :finalWork,:nameWork)");
-        $stmt->bindParam(':startWork',$startWork);
-        $stmt->bindParam(':finalWork', $finalyWork);
-        $stmt->bindParam(':nameWork',$nameWork);
-        $stmt->execute();
+            $startWork = new DateTime($_POST['StartWork_at']); 
+            $finalyWork = new DateTime($_POST['FinalyWork_at']); 
+            $nameWork = $_POST['NamesofWorker']; 
+            
+            
+            $diff = $startWork->diff($finalyWork);
+            $hour = $diff->h;
+            $minut = $diff->i;
+            
+            $total =(ish_vaqti*3600) - ($hour*3600)-($i*60);
+
+            $stmt = $pdo->prepare("INSERT INTO work_times (StartWork_at, FinalyWork_at, NamesofWorker,required_of) VALUES (:startWork, :finalWork,:nameWork,:required_of)");
+            $stmt->bindValue(':startWork',$startWork->format('y-m-d H:i'));
+            $stmt->bindValue(':finalWork', $finalyWork->format('y-m-d H:i'));
+            $stmt->bindParam(':nameWork',$nameWork);
+            $stmt ->bindParam(':required_of', $total);
+            $stmt->execute();
+            header("location: index.php");
+            exit();
+        }
 
     }
     $WorkTimes = $pdo->query("Select *from work_times")->fetchAll();
@@ -106,6 +120,8 @@
                 <th scope="col">Ism</th>
                 <th scope="col">Start Work</th>
                 <th scope="col">End Work</th>
+                <th scope="col">ishlamagan Vaqti</th>
+                
             </tr>
         </thead>
         <tbody>
@@ -114,10 +130,11 @@
     $index = 1;
     foreach ($WorkTimes as $item): ?>
             <tr>
-                <th scope="row"><?php echo $index++; ?></th>
-                <td><?php echo $item["NamesofWorker"]; ?></td>
-                <td><?php echo $item["StartWork_at"]; ?></td>
-                <td><?php echo $item["FinalyWork_at"]; ?></td>
+                <th scope="row"><?php echo $index++;?></th>
+                <td><?php echo $item["NamesofWorker"];?></td>
+                <td><?php echo $item["StartWork_at"];?></td>
+                <td><?php echo $item["FinalyWork_at"];?></td>
+                <td><?php echo gmdate('H:i',$item["required_of"]);?></td>
             </tr>
             <?php endforeach;?>
         </tbody>
