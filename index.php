@@ -78,11 +78,11 @@
 
 </html>
 <?php
+    const ish_vaqti = 8;
     $dns = "mysql:host=127.0.0.1;dbname=work_of_bill";
     $username = "root";
     $password = "root";
     $pdo = new PDO($dns,$username,$password);
-    const ish_vaqti = 8;
 
     if(isset($_POST["StartWork_at"]) and isset($_POST["FinalyWork_at"]) and isset($_POST["NamesofWorker"])){
 
@@ -97,7 +97,7 @@
             $hour = $diff->h;
             $minut = $diff->i;
             
-            $total =(ish_vaqti*3600) - ($hour*3600)-($i*60);
+            $total =(ish_vaqti*3600) - ($hour*3600)-($minut*60);
 
             $stmt = $pdo->prepare("INSERT INTO work_times (StartWork_at, FinalyWork_at, NamesofWorker,required_of) VALUES (:startWork, :finalWork,:nameWork,:required_of)");
             $stmt->bindValue(':startWork',$startWork->format('y-m-d H:i'));
