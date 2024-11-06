@@ -10,5 +10,4 @@ class DB{
         return $this->pdo;
     }
 }
-
 ?>
