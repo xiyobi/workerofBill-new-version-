@@ -78,12 +78,12 @@
 
 </html>
 <?php
+    require('DB.php');
+    $db = new DB;
+    $pdo = $db->pdo;
+    
     const ish_vaqti = 8;
-    $dns = "mysql:host=127.0.0.1;dbname=work_of_bill";
-    $username = "root";
-    $password = "root";
-    $pdo = new PDO($dns,$username,$password);
-
+    
     if(isset($_POST["StartWork_at"]) and isset($_POST["FinalyWork_at"]) and isset($_POST["NamesofWorker"])){
 
         if(!empty($_POST['StartWork_at']) and !empty($_POST['FinalyWork_at']) and !empty($_POST['NamesofWorker'])){
@@ -96,9 +96,9 @@
             $diff = $startWork->diff($finalyWork);
             $hour = $diff->h;
             $minut = $diff->i;
-            
-            $total =(ish_vaqti*3600) - ($hour*3600)-($minut*60);
 
+            $total =(ish_vaqti*3600) - ($hour*3600)-($minut*60);
+            
             $stmt = $pdo->prepare("INSERT INTO work_times (StartWork_at, FinalyWork_at, NamesofWorker,required_of) VALUES (:startWork, :finalWork,:nameWork,:required_of)");
             $stmt->bindValue(':startWork',$startWork->format('y-m-d H:i'));
             $stmt->bindValue(':finalWork', $finalyWork->format('y-m-d H:i'));
@@ -110,8 +110,8 @@
         }
 
     }
-    $WorkTimes = $pdo->query("Select *from work_times")->fetchAll();
-    ?>
+    $WorkTimes = $pdo->query("Select *from work_times")->fetchAll();?>
+
 <div class="container">
     <table class="table table-bordered border-primary">
         <thead>
