@@ -9,6 +9,12 @@
     }
 
     $records = $workDay->getWordDayList();
+    $dept = $workDay->calculateDebtTimeForEachUser();
+    
+    if(isset($_GET['done']) and !empty($_GET['done'])){
+        $workDay->markAsDone($_GET['done']);
+    }
+
     require 'view.php';
 
 ?>

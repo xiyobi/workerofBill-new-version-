@@ -163,6 +163,7 @@
                     <th scope="col">Start Work</th>
                     <th scope="col">End Work</th>
                     <th scope="col">ishlamagan Vaqti</th>
+                    <th score="col">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -175,8 +176,10 @@
             <td> {$item['StartWork_at']}</td>
             <td> {$item['FinalyWork_at']}</td>
             <td> ".gmdate('H:i',$item['required_of'])."</td>
+            <td><a href = 'index.php?done=".$item['id']."'>Done</a></td>
             </tr>";
         }
+
         ?>
 
             </tbody>

@@ -4,6 +4,11 @@ require 'DB.php';
     class WorkDay{
         const ish_vaqti = 8;   
         public $pdo;
+        public $startWork;
+        public $finalyWork;
+        public $nameWork;
+        public $total;
+
         public function __construct(){
             $db = new DB();
             $this->pdo = $db->pdo;
@@ -29,6 +34,7 @@ require 'DB.php';
             $stmt->execute();
             header("location: index.php");
             exit();
+            
         
             }
 
@@ -45,6 +51,19 @@ require 'DB.php';
             $stmt=$this->pdo->query($query);
             return $stmt->fetchAll();
         } 
+        public function calculateDebtTimeForEachUser(){
+            $query = "Select NamesofWorker, SUM(required_of) as debt from work_times GROUP BY NamesofWorker";
+            $stmt=$this->pdo->query($query);
+            return $stmt->fetchAll();
+        }
+
+        public function markAsDone(int $id){
+            $query = " UPDATE  work_times  SET required_of = 0 WHERE id = :id";
+            $stmt=$this->pdo->prepare($query);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            header("location: index.php");
+        }
     }
 
 
