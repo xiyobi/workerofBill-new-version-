@@ -8,32 +8,37 @@ require 'DB.php';
             $db = new DB();
             $this->pdo = $db->pdo;
         }
-            public function store (string $StartWork_at, string $FinalyWork_at,string $NamesofWorker ){
-                $startWork = new DateTime($StartWork_at); 
-                $finalyWork = new DateTime($FinalyWork_at); 
-                
-                
-                $nameWork = $NamesofWorker; 
-                
-                $diff = $startWork->diff($finalyWork);
-                $hour = $diff->h;
-                $minut = $diff->i;
+            public function store (string $StartWork_at, string $FinalyWork_at,string $NamesofWorker){
+                $this->startWork = new DateTime($StartWork_at); 
+                $this->finalyWork = new DateTime($FinalyWork_at); 
+                $this->nameWork = $NamesofWorker; 
+                $this->qarz();
             
-            $total =((self::ish_vaqti*3600) - ($hour*3600)-($minut*60)); 
+
+                 
             
             $query = ("INSERT INTO work_times (StartWork_at, FinalyWork_at, NamesofWorker,required_of)
                         VALUES (:startWork, :finalWork,:nameWork,:required_of);");
                         
             $stmt = $this->pdo->prepare($query);
 
-            $stmt->bindParam(':nameWork',$nameWork);
-            $stmt->bindValue(':startWork',$startWork->format('Y-m-d H:i'));
-            $stmt->bindValue(':finalWork', $finalyWork->format('Y-m-d H:i'));
-            $stmt ->bindParam(':required_of', $total);
+            $stmt->bindParam(':nameWork',$this->nameWork);
+            $stmt->bindValue(':startWork',$this->startWork->format('Y-m-d H:i'));
+            $stmt->bindValue(':finalWork', $this->finalyWork->format('Y-m-d H:i'));
+            $stmt ->bindParam(':required_of', $this->total);
             $stmt->execute();
             header("location: index.php");
             exit();
-        }
+        
+            }
+
+            public function qarz(){
+                $diff = $this->startWork->diff($this->finalyWork);
+                $hour = $diff->h;
+                $minut = $diff->i;
+                $this->total =((self::ish_vaqti*3600) - ($hour*3600)-($minut*60));
+                $this->total;
+            }
         
         public function getWordDayList(){
             $query = "Select *from work_times";
