@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Worker</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -47,64 +48,87 @@
                                 <a class="nav-link disabled" aria-disabled="true">Link</a>
                             </li>
                         </ul>
-                        <form class="d-flex" role="search">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">Search</button>
-                        </form>
+                        <div class="mr-4">
+                            <form class="d-flex" role="search">
+                                <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-success" type="submit">Search</button>
+                            </form>
+                        </div>
+
+
+                        <!-- <div class="mr-4">
+                            <form class="d-flex" role="search">
+                                <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-success" type="submit">Search</button>
+                            </form>
+                        </div> -->
+
+
+
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#feedbackModal">
-                            Saytimiz  haqida finkringiz!
+                            Saytimiz haqida finkringiz!
                         </button>
                     </div>
                 </div>
+
             </nav>
 
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#dataModal">
-            Malumotlarni qo'shish
-        </button><br><br>
+                Malumotlarni qo'shish
+            </button><br><br>
     </div>
-                        <!--Fikr va mulohazalar  Modal -->
-                        <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="feedbackModalLabel">Fikr va mulohazalar </h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="mb-3">
-                                            <label for="exampleFormControlInput1" class="form-label">Email
-                                                address</label>
-                                            <input type="email" class="form-control" id="exampleFormControlInput1"
-                                                placeholder="name@example.com">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="exampleFormControlTextarea1" class="form-label">Example
-                                                textarea</label>
-                                            <textarea class="form-control" id="exampleFormControlTextarea1"
-                                                rows="3"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Bekor qilish</button>
-                                        <button type="button" class="btn btn-primary">Yuborish</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                 
-        </nav>
-        <!-- Malumotlar kititish modal -->
-        <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Malumotlarni qo'shish
-        </button><br><br>
-    </div> -->
+    <!--Fikr va mulohazalar  Modal -->
+    <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="feedbackModalLabel">Fikr va mulohazalar </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Email
+                            address</label>
+                        <input type="email" class="form-control" id="exampleFormControlInput1"
+                            placeholder="name@example.com">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Example
+                            textarea</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bekor qilish</button>
+                    <button type="button" class="btn btn-primary">Yuborish</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <!-- Modal -->
+    </nav>
+    <div class="container">
+        <div class="mt-4">
+            <div class="mb-4">
+
+                <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">Qilinishi kerak bolgan ishlar
+                    ro'yhati</button>
+                <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom"
+                    aria-labelledby="offcanvasBottomLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasBottomLabel">Today</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body small">
+                        salom qalaysan
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="modal fade" id="dataModal" tabindex="-1" aria-labelledby="dataModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -147,9 +171,16 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button><br>
+                    <button type="submit" class="btn btn-primary">send</button><br>
                 </div>
+                <div class="modal-auto">
+                    <button form="export" type="submit" class="btn btn-success">Export</button><br>
+                </div>
+                <form action="" id = "export"></form>
+
+
                 </form>
+
             </div>
         </div>
     </div>
@@ -164,10 +195,11 @@
                     <th scope="col">End Work</th>
                     <th scope="col">ishlamagan Vaqti</th>
                     <th score="col">Action</th>
+                    <th score="col">Name edit</th>
                 </tr>
             </thead>
             <tbody>
-    <?php 
+                <?php 
         global $records;
         foreach ($records as $item){
             echo "<tr>
@@ -177,6 +209,8 @@
             <td> {$item['FinalyWork_at']}</td>
             <td> ".gmdate('H:i',$item['required_of'])."</td>
             <td><a href = 'index.php?done=".$item['id']."'>Done</a></td>
+            <td><a href = 'index.php?edit=".$item['id']."'>Edit</a></td>
+
             </tr>";
         }
 
@@ -192,6 +226,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
     </script>
+
 </body>
 
 </html>

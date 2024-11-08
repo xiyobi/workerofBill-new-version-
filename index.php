@@ -14,6 +14,11 @@
     if(isset($_GET['done']) and !empty($_GET['done'])){
         $workDay->markAsDone($_GET['done']);
     }
+    if(isset($_GET['edid']) and !empty($_GET['edid'])){
+        $workDay->NameEdid($_GET['edid']);
+        
+    }
+    
 
     require 'view.php';
 

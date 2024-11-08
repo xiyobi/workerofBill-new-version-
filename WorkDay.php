@@ -22,7 +22,7 @@ require 'DB.php';
 
                  
             
-            $query = ("INSERT INTO work_times (StartWork_at, FinalyWork_at, NamesofWorker,required_of)
+            $query = ("INSERT INTO work_times (StartWork_at, FinalyWork_at, NamesofWorker, required_of)
                         VALUES (:startWork, :finalWork,:nameWork,:required_of);");
                         
             $stmt = $this->pdo->prepare($query);
@@ -59,6 +59,12 @@ require 'DB.php';
 
         public function markAsDone(int $id){
             $query = " UPDATE  work_times  SET required_of = 0 WHERE id = :id";
+            $stmt=$this->pdo->prepare($query);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+        }
+        public function NameEdit(int $id){
+            $query = " UPDATE  work_times NamesofWorker=changnName SET  WHERE id = :id";
             $stmt=$this->pdo->prepare($query);
             $stmt->bindParam(':id', $id);
             $stmt->execute();

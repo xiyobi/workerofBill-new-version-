@@ -1,4 +1,4 @@
-.table{
+/* .table{
     background-color: blue;
     font-size: large;
     border-radius: 10px;
@@ -21,4 +21,10 @@
     border-radius: 10px;
     inline-size: 80px solid green 2px ;   
 
+}
+.Searchs form button{
+    margin-right: 10px;
+} */
+.mr-4{
+    margin-right: 20px;
 }
