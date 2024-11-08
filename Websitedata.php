@@ -10,7 +10,7 @@
 
 <body>
     <div  class="container">
-        <div  id="carouselExampleRide" class="carousel slide" data-bs-ride="carousel">
+        <div id="carouselExampleRide" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <img src="https://get.wallhere.com/photo/car-vehicle-blue-palm-trees-sports-car-Bugatti-Bugatti-Veyron-wheel-supercar-vitesse-veyron-land-vehicle-automotive-design-automobile-make-581948.jpg"

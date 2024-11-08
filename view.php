@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div class="container" class="mt-4">
+    <div class="container mt-4">
 
         <nav class="navbar" style="background-color: #e3f2fd;">
             <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -138,7 +138,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="index.php" class="post">
+                    <form action="index.php" method="post">
                         <h5>When are you working?</h5>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
@@ -152,34 +152,39 @@
                         </div>
                     </form>
 
-                    <form method="post">
-                        <div class="mb-3">
-                            <label for="NamesofWorker" class="form-label">Names Worker</label>
-                            <input type="text" class="form-control" id="NamesofWorker" name="NamesofWorker"
-                                placeholder="Worker Name " required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="StartWork_at" class="form-label">Start Work</label>
-                            <input type="datetime-local" class="form-control" id="StartWork_at" name="StartWork_at"
-                                required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="FinalyWork_at" class="form-label">Finaly Work</label>
-                            <input type="datetime-local" class="form-control" id="FinalyWork_at" name="FinalyWork_at"
-                                required>
-                        </div>
+
+                    <div class="mb-3">
+                        <label for="NamesofWorker" class="form-label">Names Worker</label>
+                        <input type="text" class="form-control" id="NamesofWorker" name="NamesofWorker"
+                            placeholder="Worker Name " required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="StartWork_at" class="form-label">Start Work</label>
+                        <input type="datetime-local" class="form-control" id="StartWork_at" name="StartWork_at"
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="FinalyWork_at" class="form-label">Finaly Work</label>
+                        <input type="datetime-local" class="form-control" id="FinalyWork_at" name="FinalyWork_at"
+                            required>
+                    </div>
 
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">send</button><br>
                 </div>
-                <div class="modal-auto">
-                    <button form="export" type="submit" class="btn btn-success">Export</button><br>
-                </div>
-                <form action="" id = "export"></form>
+
+              
 
 
+                <form action="download.php" id="export" method="post">
+                    <input type="hidden" name="export" value="true">
+                    <button type="submit" class="btn btn-success">Export</button>
                 </form>
+
+
+
+
 
             </div>
         </div>
@@ -200,8 +205,11 @@
             </thead>
             <tbody>
                 <?php 
+
         global $records;
+        $i = isset($_GET['page']) ? (int)$_GET['page']:0;
         foreach ($records as $item){
+            $i++;
             echo "<tr>
             <th>{$item ['id']}</th>
             <td> {$item['NamesofWorker']}</td>
@@ -218,14 +226,34 @@
 
             </tbody>
         </table>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <?php
+                    global $workDay,$currentPage;
+                    $disabled = $currentPage == 1 ? "disabled":"";
+
+                ?>
+                <li class="page-item disabled">
+                    <a class="page-link">Previous</a>
+                </li>
+                <?php
+                    $pageCount = $workDay->calculatePageCount();
+                    for ($page = 1; $page <= $pageCount; $page++) {
+                        $active = ($_GET['page'] == $page) ? 'active' : '';
+                        echo "<li class='page-item $active'><a class='page-link' href='index.php?page=".$page."''>".$page."</a></li>";
+                    }
+                    
+                ?>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 
 </body>
 

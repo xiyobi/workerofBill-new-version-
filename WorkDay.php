@@ -47,9 +47,9 @@ require 'DB.php';
             }
         
         public function getWordDayList(){
-            $query = "Select *from work_times";
+            $query = "Select *from work_times ORDER BY StartWork_at DESC";
             $stmt=$this->pdo->query($query);
-            return $stmt->fetchAll();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } 
         public function calculateDebtTimeForEachUser(){
             $query = "Select NamesofWorker, SUM(required_of) as debt from work_times GROUP BY NamesofWorker";
@@ -62,6 +62,24 @@ require 'DB.php';
             $stmt=$this->pdo->prepare($query);
             $stmt->bindParam(':id', $id);
             $stmt->execute();
+        }
+
+        public function getWorkDayListWithPagination (int $offset) {
+            $offset = $offset ? ($offset * 10)-10 : 0;
+            $query = "SELECT * FROM work_times ORDER BY StartWork_at DESC LIMIT 10 OFFSET " . $offset;
+            $stmt = $this->pdo->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        
+        public function getTotalRecords(){
+            $query = "Select COUNT(id) as pageCount from work_times";
+            $stmt=$this->pdo->query($query);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        public function calculatePageCount(){
+            $total = $this->getTotalRecords()[0]['pageCount'];
+            return ceil($total/10);
         }
         public function NameEdit(int $id){
             $query = " UPDATE  work_times NamesofWorker=changnName SET  WHERE id = :id";

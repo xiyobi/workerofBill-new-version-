@@ -7,8 +7,10 @@
             $workDay->store($_POST['StartWork_at'],$_POST['FinalyWork_at'],$_POST['NamesofWorker']);
         }
     }
+    $currentPage = isset($_GET['page']) ? $_GET['page']:0;
 
-    $records = $workDay->getWordDayList();
+    $records = $workDay->getWorkDayListWithPagination($currentPage);
+    
     $dept = $workDay->calculateDebtTimeForEachUser();
     
     if(isset($_GET['done']) and !empty($_GET['done'])){
